@@ -1,0 +1,17 @@
+[
+  {
+    "maxAgeSeconds": 3600,
+    "method": ["GET", "POST", "HEAD", "DELETE"],
+    "origin": ["*"],
+    "responseHeader": [
+      "Content-Type",
+      "Access-Control-Allow-Origin",
+      "Content-Range",
+      "Origin",
+      "Range",
+      "Content-Length",
+      "X-Accel-Buffering",
+      "Accept-Ranges"
+    ]
+  }
+]

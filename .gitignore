@@ -1,0 +1,14 @@
+bower_components
+package-lock.json
+node_modules
+*.log
+.DS_Store
+*.obj
+*.webm
+*.mp4
+*.png
+assets
+npm-debug.log.*
+
+*.part
+*.ytdl
