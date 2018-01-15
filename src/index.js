@@ -1,14 +1,9 @@
-import { assign } from "lodash"
 import Q from "bluebird"
 import Signals from "signals"
-import Xhr from "xhr-request"
-import MediaSource from "./src/mediasource"
-import VOUtils from "./src/vo-utils"
+import MediaSource from "./mediasource"
+import VOUtils from "./vo-utils"
 
-const xhr = Q.promisify(Xhr)
-//const xhr = Q.promisify(Get)
-
-export default options => {
+const MediaPlayer = options => {
   const mediaSource = new MediaSource({
     readySignal: new Signals(),
     videoStartedSignal: new Signals(),
@@ -27,7 +22,7 @@ export default options => {
 
   const addFromReference = (data, referenceRange) => {
     const vo = VOUtils.voFromRef(
-      assign({}, data, {
+      Object.assign({}, data, {
         url: `${ASSET_URL}${data.videoId}_${data.itag}`,
       }),
       referenceRange
@@ -42,5 +37,8 @@ export default options => {
     mediaSource: mediaSource,
     addFromReference: addFromReference,
   }
-
 }
+
+window.OrchardLaneMediaPlayer = MediaPlayer
+
+export default MediaPlayer

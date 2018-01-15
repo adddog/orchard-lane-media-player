@@ -1,7 +1,8 @@
 import Emitter from "./Emitter"
 import Utils from "./utils"
 
-import { ERROR_TYPES, BEHAVIORS } from "./constants"
+import CONST from "./constants"
+const { ERROR_TYPES, BEHAVIORS }  = CONST
 
 import Loader from './loader';
 import Signals from 'signals';

@@ -4,7 +4,7 @@ options
 all
 duration: in seconds
 */
-import _ from "lodash"
+import isArray from 'lodash.isarray'
 
 Utils.vo = {
   url: undefined,

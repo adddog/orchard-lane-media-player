@@ -1,5 +1,6 @@
 'use strict';
-import _ from 'lodash';
+import isObject from 'lodash.isobject'
+
 // Define
 const Utils = {
 
@@ -69,9 +70,9 @@ Utils.getIdFromItem = (item) => {
   if(item.videoId){
     return item.videoId
   }
-  if (_.isObject(item.id)) {
+  if (isObject(item.id)) {
     return item.id.videoId;
-  } else if (_.isObject(item.snippet.resourceId)) {
+  } else if (isObject(item.snippet.resourceId)) {
     return item.snippet.resourceId.videoId;
   } else {
     return;
