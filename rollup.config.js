@@ -26,7 +26,6 @@ export default {
                 'node_modules/bluebird/**',
                 'node_modules/signals/**',
                 'node_modules/lodash.isobject/**',
-                'node_modules/lodash.isarray/**',
             ]
         }),
         babel({
@@ -34,6 +33,9 @@ export default {
             exclude: "node_modules/**",
             presets: [
                 ["es2015", { loose: true, modules: false }],
+                ["stage-0"],
+                ["stage-1"],
+                ["stage-2"],
             ],
             plugins: ["external-helpers"],
         }),

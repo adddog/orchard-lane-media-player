@@ -1013,7 +1013,7 @@
 	    if (values instanceof Promise) {
 	        values = values._target();
 	        var bitField = values._bitField;
-
+	        
 	        this._values = values;
 
 	        if (((bitField & 50397184) === 0)) {
@@ -1537,14 +1537,14 @@
 	Promise.prototype._onCancel = function () {};
 	Promise.prototype._setOnCancel = function (handler) {  };
 	Promise.prototype._attachCancellationCallback = function(onCancel) {
-
+	    
 	};
 	Promise.prototype._captureStackTrace = function () {};
 	Promise.prototype._attachExtraTrace = function () {};
 	Promise.prototype._clearCancellationData = function() {};
 	Promise.prototype._propagateFrom = function (parent, flags) {
-
-
+	    
+	    
 	};
 
 	function cancellationExecute(executor, resolve, reject) {
@@ -2912,7 +2912,7 @@
 	                    if (maybePromise instanceof Promise) {
 	                        maybePromise = maybePromise._target();
 	                        var bitField = maybePromise._bitField;
-
+	                        
 	                        if (((bitField & 50397184) === 0)) {
 	                            maybePromise._then(callbacks[i], reject,
 	                                               undefined, ret, holder);
@@ -3029,7 +3029,7 @@
 	        if (maybePromise instanceof Promise) {
 	            maybePromise = maybePromise._target();
 	            var bitField = maybePromise._bitField;
-
+	            
 	            if (((bitField & 50397184) === 0)) {
 	                if (limit >= 1) this._inFlight++;
 	                values[index] = maybePromise;
@@ -3731,7 +3731,7 @@
 	        }
 	        maybePromise = maybePromise._target();
 	        var bitField = maybePromise._bitField;
-
+	        
 	        if (((bitField & 50397184) === 0)) {
 	            this._yieldedPromise = maybePromise;
 	            maybePromise._proxy(this, null);
@@ -4357,8 +4357,8 @@
 	util$$1.inherits(ReductionPromiseArray, PromiseArray);
 
 	ReductionPromiseArray.prototype._gotAccum = function(accum) {
-	    if (this._eachValues !== undefined &&
-	        this._eachValues !== null &&
+	    if (this._eachValues !== undefined && 
+	        this._eachValues !== null && 
 	        accum !== INTERNAL) {
 	        this._eachValues.push(accum);
 	    }
@@ -5501,28 +5501,28 @@
 	filter(Promise, INTERNAL);
 	each(Promise, INTERNAL);
 	any(Promise);
-
-	    util$$1.toFastProperties(Promise);
-	    util$$1.toFastProperties(Promise.prototype);
-	    function fillTypes(value) {
-	        var p = new Promise(INTERNAL);
-	        p._fulfillmentHandler0 = value;
-	        p._rejectionHandler0 = value;
-	        p._promise0 = value;
-	        p._receiver0 = value;
-	    }
-	    // Complete slack tracking, opt out of field-type tracking and
-	    // stabilize map
-	    fillTypes({a: 1});
-	    fillTypes({b: 2});
-	    fillTypes({c: 3});
-	    fillTypes(1);
-	    fillTypes(function(){});
-	    fillTypes(undefined);
-	    fillTypes(false);
-	    fillTypes(new Promise(INTERNAL));
-	    debug.setBounds(Async.firstLineError, util$$1.lastLineError);
-	    return Promise;
+	                                                         
+	    util$$1.toFastProperties(Promise);                                          
+	    util$$1.toFastProperties(Promise.prototype);                                
+	    function fillTypes(value) {                                              
+	        var p = new Promise(INTERNAL);                                       
+	        p._fulfillmentHandler0 = value;                                      
+	        p._rejectionHandler0 = value;                                        
+	        p._promise0 = value;                                                 
+	        p._receiver0 = value;                                                
+	    }                                                                        
+	    // Complete slack tracking, opt out of field-type tracking and           
+	    // stabilize map                                                         
+	    fillTypes({a: 1});                                                       
+	    fillTypes({b: 2});                                                       
+	    fillTypes({c: 3});                                                       
+	    fillTypes(1);                                                            
+	    fillTypes(function(){});                                                 
+	    fillTypes(undefined);                                                    
+	    fillTypes(false);                                                        
+	    fillTypes(new Promise(INTERNAL));                                        
+	    debug.setBounds(Async.firstLineError, util$$1.lastLineError);               
+	    return Promise;                                                          
 
 	};
 	});
@@ -6792,45 +6792,13 @@
 	  return VjMediaSource;
 	}();
 
-	/**
-	 * lodash 4.0.0 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modularize exports="npm" -o ./`
-	 * Copyright 2012-2016 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-
-	/**
-	 * Checks if `value` is classified as an `Array` object.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @type Function
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
-	 * @example
-	 *
-	 * _.isArray([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isArray(document.body.children);
-	 * // => false
-	 *
-	 * _.isArray('abc');
-	 * // => false
-	 *
-	 * _.isArray(_.noop);
-	 * // => false
-	 */
-
 	var Utils$2 = {};
 	/*
 	options
 	all
 	duration: in seconds
 	*/
+
 	Utils$2.vo = {
 	  url: undefined,
 	  byteRange: undefined,
@@ -6902,7 +6870,7 @@
 	  var startIndex = void 0,
 	      endIndex = void 0;
 	  startIndex = endIndex = vo.refIndex;
-	  if (_.isArray(vo.refIndex)) {
+	  if (Array.isArray(vo.refIndex)) {
 	    startIndex = endIndex = vo.refIndex[0];
 	    if (vo.refIndex.length > 1) {
 	      startIndex = vo.refIndex[0];

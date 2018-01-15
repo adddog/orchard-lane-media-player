@@ -4,7 +4,6 @@ options
 all
 duration: in seconds
 */
-import isArray from 'lodash.isarray'
 
 Utils.vo = {
   url: undefined,
@@ -96,7 +95,7 @@ Utils.combineRefsIndexs = (item, vo, options = {}) => {
   let references = sidx.references
   let startIndex, endIndex
   startIndex = endIndex = vo.refIndex
-  if (_.isArray(vo.refIndex)) {
+  if (Array.isArray(vo.refIndex)) {
     startIndex = endIndex = vo.refIndex[0]
     if (vo.refIndex.length > 1) {
       startIndex = vo.refIndex[0]
