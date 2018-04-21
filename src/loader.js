@@ -1,6 +1,6 @@
 import Q from 'bluebird';
 
-const VERBOSE = true;
+const VERBOSE = false;
 const INDEX_CACHING = false;
 const INDEX_CACHE_SIZE = 20;
 
@@ -105,7 +105,6 @@ const VjMediaSourceLoader = (() => {
     if (VERBOSE) {
       console.log(vo.byteRange, vo.byteLength, vo.duration);
     }
-    console.log(vo);
     let _headers = {
       'Range': 'bytes=' + vo.byteRange,
       'X-Accel-Buffering': 'no',
@@ -114,7 +113,6 @@ const VjMediaSourceLoader = (() => {
       'Content-Type': 'multipart/form-data',
       "Access-Control-Allow-Origin": "*"
     }
-    console.log(url);
     return _xhr(vo, url, null, _headers)
   }
 

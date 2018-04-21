@@ -1,7 +1,7 @@
 {
   "name": "orchard-lane-media-player",
   "version": "0.0.21",
-  "main": "dist/orchard-lane-media-player.js",
+  "main": "src/index.js",
   "license": "MIT",
   "homepage": "https://github.com/samradical/orchard-lane-media-player",
   "author": "Sam Elie <samradelie@gmail.com>",
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "bluebird": "^3.5.0",
+    "lodash.assign": "^4.2.0",
     "lodash.isobject": "^3.0.2",
     "signals": "^1.0.0"
   },
@@ -39,7 +40,7 @@
     "build": "browserify -e index.js -t [ envify --NODE_ENV production ] -t babelify --presets [ es2015 stage-0 stage-1 ] -o dist/bundle.js ",
     "build:rollup": "NODE_ENV=production rollup -c && rollup -c",
     "build:prod": "browserify index.js -t [ envify --NODE_ENV production ] -t babelify --presets [ es2015 stage-0 stage-1 ] | uglifyjs -c -m --source-map --output dist/bundle.min.js ",
-     "start": "rollup -c -w"
+    "start": "rollup -c -w"
   },
   "bugs": {
     "url": "https://github.com/samradical/orchard-lane-media-player/issues"

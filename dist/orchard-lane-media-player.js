@@ -6065,38 +6065,6 @@
 
 	var Emitter = new EventEmitter();
 
-	/**
-	 * lodash 3.0.2 (Custom Build) <https://lodash.com/>
-	 * Build: `lodash modern modularize exports="npm" -o ./`
-	 * Copyright 2012-2015 The Dojo Foundation <http://dojofoundation.org/>
-	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
-	 */
-
-	/**
-	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
-	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
-	 *
-	 * @static
-	 * @memberOf _
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
-	 * @example
-	 *
-	 * _.isObject({});
-	 * // => true
-	 *
-	 * _.isObject([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObject(1);
-	 * // => false
-	 */
-
-	// Export
-
 	var USER_EVENTS = {
 	  VO_ADDED: 'VO_ADDED',
 	  VIDEO_FINISHED: 'VIDEO_FINISHED',
@@ -6145,7 +6113,7 @@
 	  BEHAVIORS: BEHAVIORS$1
 	};
 
-	var VERBOSE$1 = true;
+	var VERBOSE$1 = false;
 	var INDEX_CACHING = false;
 	var INDEX_CACHE_SIZE = 20;
 
@@ -6252,7 +6220,6 @@
 	    if (VERBOSE$1) {
 	      console.log(vo.byteRange, vo.byteLength, vo.duration);
 	    }
-	    console.log(vo);
 	    var _headers = {
 	      'Range': 'bytes=' + vo.byteRange,
 	      'X-Accel-Buffering': 'no',
@@ -6261,7 +6228,6 @@
 	      'Content-Type': 'multipart/form-data',
 	      "Access-Control-Allow-Origin": "*"
 	    };
-	    console.log(url);
 	    return _xhr(vo, url, null, _headers);
 	  }
 
@@ -6396,7 +6362,6 @@
 	    return new bluebird_1(function (resolve, reject) {
 	      _this2._removeSourceBuffer().then(function () {
 	        setTimeout(function () {
-	          console.log(_this2.mediaSource.sourceBuffers);
 	          _this2.mediaSource.removeEventListener('sourceopen', _this2.onSourceOpenBound);
 	          _this2.currentCodec = codecs || _this2.currentCodec;
 	          _this2.mediaSource.addEventListener('addsourcebuffer', function () {
@@ -6600,7 +6565,11 @@
 	      var _i = void 0,
 	          _self = _this5;
 
+	      resolve();
+	      return;
+
 	      function _poll() {
+	        console.log(_self.sourceBuffer);
 	        if (!_self.sourceBuffer.updating) {
 	          clearInterval(_i);
 	          Emitter.emit('audio:log', "Sourcebuffer mode: " + _self.sourceBuffer.mode);
@@ -6680,7 +6649,6 @@
 
 	      if (_this7._canUpdate() && _this7.sourceBuffer) {
 	        _this7.sourceBuffer.addEventListener('updateend', _onResponseAdded);
-	        //this.sourceBuffer.addEventListener('updateend', this.onBufferUpdateEndBound);
 	        _this7.sourceBuffer.addEventListener('updatestart', _this7.onBufferUpdateStartBound);
 	        try {
 	          _this7.sourceBuffer.appendBuffer(resp);
@@ -6792,14 +6760,14 @@
 	  return VjMediaSource;
 	}();
 
-	var Utils$2 = {};
+	var Utils = {};
 	/*
 	options
 	all
 	duration: in seconds
 	*/
 
-	Utils$2.vo = {
+	Utils.vo = {
 	  url: undefined,
 	  byteRange: undefined,
 	  byteRangeMax: undefined,
@@ -6816,7 +6784,7 @@
 	  duration: 5
 	};
 
-	Utils$2.createVo = function (data) {
+	Utils.createVo = function (data) {
 	  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
 	  var startIndex = 0;
@@ -6862,7 +6830,7 @@
 	  return videoVo;
 	};
 
-	Utils$2.combineRefsIndexs = function (item, vo) {
+	Utils.combineRefsIndexs = function (item, vo) {
 	  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
 	  var sidx = item.sidx;
@@ -6914,13 +6882,12 @@
 	/*
 	{duration}
 	*/
-	Utils$2.voFromRef = function (manifest) {
+	Utils.voFromRef = function (manifest) {
 	  var refs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 	  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : DEFAULTS;
 	  var sidx = manifest.sidx;
 	  var references = sidx.references;
 
-	  console.log(refs);
 	  var currentRefIndexs = [];
 	  var startIndex = currentRefIndexs[0] || refs[0] || 0;
 	  var endIndex = currentRefIndexs[currentRefIndexs.length - 1] || refs[1] || refs[0] + 1 || 0;
@@ -6958,16 +6925,16 @@
 	  return videoVo;
 	};
 
-	Utils$2.getReferenceVo = function (item, refIndex) {
+	Utils.getReferenceVo = function (item, refIndex) {
 	  var sidx = item.sidx;
 	  var ref = sidx.references[refIndex];
-	  return Utils$2.voFromRef(sidx, ref);
+	  return Utils.voFromRef(sidx, ref);
 	};
 
-	Utils$2.getReferenceVoFromIndex = function (item, refIndex) {
+	Utils.getReferenceVoFromIndex = function (item, refIndex) {
 	  var sidx = item.sidx;
 	  var ref = sidx.references[refIndex];
-	  return Utils$2.voFromRef(sidx, ref);
+	  return Utils.voFromRef(sidx, ref);
 	};
 
 	var MediaPlayer = function MediaPlayer(options) {
@@ -6988,16 +6955,14 @@
 	  var ASSET_URL = options.assetUrl || "";
 
 	  var addFromReference = function addFromReference(data, referenceRange) {
-	    var vo = Utils$2.voFromRef(Object.assign({}, data, {
-	      url: "" + ASSET_URL + data.videoId + "_" + data.itag
-	    }), referenceRange);
 
+	    var vo = Utils.voFromRef(data, referenceRange);
 	    mediaSource.addVo(vo);
 	    return vo;
 	  };
 
 	  return {
-	    VOUtils: Utils$2,
+	    VOUtils: Utils,
 	    mediaSource: mediaSource,
 	    addFromReference: addFromReference
 	  };

@@ -1,3 +1,4 @@
+import assign from "lodash.assign"
 const Utils = {}
 /*
 options
@@ -106,13 +107,15 @@ Utils.combineRefsIndexs = (item, vo, options = {}) => {
   let eRef = references[endIndex]
   var size = 0
   var duration = 0
-  for (var j = startIndex; j <= endIndex; j++) {
-    duration += references[j]["durationSec"]
-    size += references[j].size
+  if (references && references.length) {
+    for (var j = startIndex; j <= endIndex; j++) {
+      duration += references[j]["durationSec"]
+      size += references[j].size
+    }
   }
   var brEnd = parseInt(eRef["mediaRange"].split("-")[1], 10)
   var brMax = brEnd
-  var videoVo = {}
+  var videoVo = assign({}, item)
   videoVo["url"] = item["url"] || item.baseUrl
   videoVo["byteRange"] =
     sRef["mediaRange"].split("-")[0] + "-" + brEnd
@@ -143,43 +146,40 @@ Utils.combineRefsIndexs = (item, vo, options = {}) => {
 Utils.voFromRef = (manifest, refs = [], options = DEFAULTS) => {
   const { sidx } = manifest
   const { references } = sidx
-  console.log(refs);
-  let  currentRefIndexs  = []
+  let currentRefIndexs = []
   let startIndex = currentRefIndexs[0] || refs[0] || 0
   let endIndex =
-    currentRefIndexs[currentRefIndexs.length - 1] || refs[1] || refs[0] + 1 || 0
+    currentRefIndexs[currentRefIndexs.length - 1] ||
+    refs[1] ||
+    refs[0] + 1 ||
+    0
   let sRef = references[startIndex]
   let eRef = references[endIndex]
   var size = 0
   var duration = 0
-  for (var j = startIndex; j <= endIndex; j++) {
-    duration += references[j]["durationSec"]
-    size += references[j].size
+  if (references && references.length) {
+    for (var j = startIndex; j <= endIndex; j++) {
+      duration += references[j]["durationSec"]
+      size += references[j].size
+    }
   }
   var brEnd = parseInt(eRef["mediaRange"].split("-")[1], 10)
   var brMax = brEnd
-  var videoVo = {}
+  var videoVo = assign({}, manifest)
   videoVo["url"] = manifest["url"] || manifest.baseUrl
   videoVo["byteRange"] =
     sRef["mediaRange"].split("-")[0] + "-" + brEnd
   videoVo["byteLength"] = size
   videoVo["codecs"] = manifest["codecs"]
   videoVo["firstOffset"] = sidx["firstOffset"]
-  videoVo["indexRange"] = `0-${sidx.firstOffset-1}`
+  videoVo["indexRange"] = `0-${sidx.firstOffset - 1}`
   videoVo.indexLength = sidx.firstOffset
   videoVo["timestampOffset"] = sRef["startTimeSec"]
   videoVo["duration"] = duration
-  /*_.forIn(options, (val, key) => {
-      videoVo[key] = val;
-    })
-    if(!manifest.youtubeDl){
-      videoVo.url += '&range=' + videoVo.byteRange;
-    }
-    console.log(videoVo);*/
   videoVo.videoId = manifest.videoId
   videoVo.id = manifest.id || videoVo.videoId
-  videoVo.indexUrl = videoVo.url// + `?range=${videoVo.indexRange}`
-  videoVo.rangeUrl = videoVo.url// + `?range=${videoVo.byteRange}`
+  videoVo.indexUrl = videoVo.url // + `?range=${videoVo.indexRange}`
+  videoVo.rangeUrl = videoVo.url // + `?range=${videoVo.byteRange}`
   return videoVo
 }
 
